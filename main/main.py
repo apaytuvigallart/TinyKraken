@@ -1,7 +1,6 @@
-from twilio.rest import Client
-
 from ai import generate_text
 from settings import ACCOUNT_SID, AUTH_TOKEN
+from twilio.rest import Client
 
 
 def main(receiver: int, sender: int) -> str:

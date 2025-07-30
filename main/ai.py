@@ -1,5 +1,4 @@
 from google import genai
-
 from settings import GOOGLE_API_KEY
 
 
