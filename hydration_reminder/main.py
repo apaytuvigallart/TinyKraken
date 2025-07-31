@@ -1,5 +1,10 @@
 from ai import generate_text
-from settings import ACCOUNT_SID, AUTH_TOKEN
+from settings import (
+    TO_PHONE,
+    TWILIO_ACCOUNT_SID,
+    TWILIO_AUTH_TOKEN,
+    TWILIO_PHONE_NUMBER,
+)
 from twilio.rest import Client
 
 
@@ -7,11 +12,11 @@ def main(receiver: str, sender: str) -> str:
     """
     Main function to send a notification using Twilio.
     """
-    if ACCOUNT_SID is None or AUTH_TOKEN is None:
+    if TWILIO_ACCOUNT_SID is None or TWILIO_AUTH_TOKEN is None:
         raise ValueError("Twilio credentials are not set, dropping ")
     try:
         sentence = generate_text()
-        client = Client(ACCOUNT_SID, AUTH_TOKEN)
+        client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
         client.messages.create(to=receiver, from_=sender, body=sentence)
 
         return "Message sent successfully: " + sentence
@@ -20,6 +25,4 @@ def main(receiver: str, sender: str) -> str:
         return "Failed to send message: " + str(e)
 
 
-main(
-    "+34123456789", "+11234567890"
-)  # Example phone numbers, include country code, i.e. +34 for Spain
+main(receiver=TO_PHONE, sender=TWILIO_PHONE_NUMBER)
