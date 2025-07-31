@@ -3,7 +3,7 @@ from settings import ACCOUNT_SID, AUTH_TOKEN
 from twilio.rest import Client
 
 
-def main(receiver: int, sender: int) -> str:
+def main(receiver: str, sender: str) -> str:
     """
     Main function to send a notification using Twilio.
     """
@@ -12,11 +12,11 @@ def main(receiver: int, sender: int) -> str:
 
     sentence = generate_text()
     client = Client(ACCOUNT_SID, AUTH_TOKEN)
-    client.messages.create(to=f"+{receiver}", from_=f"+{sender}", body=sentence)
+    client.messages.create(to=receiver, from_=sender, body=sentence)
 
     return "Message sent successfully: " + sentence
 
 
 main(
-    34123456789, 11234567890
+    "+34123456789", "+11234567890"
 )  # Example phone numbers, include country code, i.e. +34 for Spain
