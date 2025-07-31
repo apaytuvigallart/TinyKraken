@@ -11,6 +11,9 @@ MOCKED_FROM = "+0987654321"
 @patch("main.Client")
 @patch("main.generate_text")
 def test_notification(mock_generate_text, mock_client):
+    """
+    Test sending a notification using Twilio with mocked AI text generation.
+    """
     mock_instance = Mock()
     mock_client.return_value = mock_instance
 
@@ -28,6 +31,8 @@ def test_notification(mock_generate_text, mock_client):
 
 @patch("ai.Client")
 def test_ai_text_generation(mock_client):
+    """
+    Test AI text generation with mocked response."""
     mock_instance = Mock()
     mock_client.return_value = mock_instance
 
