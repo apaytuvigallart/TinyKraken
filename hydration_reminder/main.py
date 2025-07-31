@@ -9,12 +9,15 @@ def main(receiver: str, sender: str) -> str:
     """
     if ACCOUNT_SID is None or AUTH_TOKEN is None:
         raise ValueError("Twilio credentials are not set, dropping ")
+    try:
+        sentence = generate_text()
+        client = Client(ACCOUNT_SID, AUTH_TOKEN)
+        client.messages.create(to=receiver, from_=sender, body=sentence)
 
-    sentence = generate_text()
-    client = Client(ACCOUNT_SID, AUTH_TOKEN)
-    client.messages.create(to=receiver, from_=sender, body=sentence)
+        return "Message sent successfully: " + sentence
 
-    return "Message sent successfully: " + sentence
+    except Exception as e:
+        return "Failed to send message: " + str(e)
 
 
 main(
