@@ -58,8 +58,8 @@ TO_PHONE="+34987654321"
 GEMINI_API_KEY="your_gemini_api_key"
 ```
 
+## ⏱️ How to Schedule It
 
-## ⏱️ How to Schedule It
 TinyKraken does not currently handle scheduling on its own. You need to use a system scheduler like cron (Linux/macOS) or Task Scheduler (Windows).
 
 ## 🛠️ Coming Soon
