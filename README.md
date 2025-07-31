@@ -43,10 +43,13 @@ cd TinyKraken
 ./install.sh
 ```
 This script:
-- Creates and activates a Python environment, `.env`.
+- Creates and activates `.venv` if it doesn't exist.
+- Creates `.env`, if it doesn't exist.
 - Installs dependencies from `requirements.txt`.
 
 ### 3. Set Up Environment Variables
+Change the values of the environment variables.
+
 ```env
 TWILIO_ACCOUNT_SID="your_twilio_account_sid"
 TWILIO_AUTH_TOKEN="your_twilio_auth_token"
@@ -54,6 +57,7 @@ TWILIO_PHONE_NUMBER="+34123456789"
 TO_PHONE="+34987654321"
 GEMINI_API_KEY="your_gemini_api_key"
 ```
+
 
 ## ⏱️ How to Schedule It
 TinyKraken does not currently handle scheduling on its own. You need to use a system scheduler like cron (Linux/macOS) or Task Scheduler (Windows).
