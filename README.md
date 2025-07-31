@@ -40,6 +40,7 @@ cd TinyKraken
 
 ### 2. Run the install script
 ```bash
+chmod +x install.sh
 ./install.sh
 ```
 This script:
