@@ -39,11 +39,10 @@ TWILIO_PHONE_NUMBER="$TWILIO_PHONE_NUMBER"
 TO_PHONE_NUMBER="$TO_PHONE_NUMBER"
 GOOGLE_API_KEY="$GOOGLE_API_KEY"
 EOL
-  echo ".env file created. Please edit it with your credentials."
+  echo ".env file created."
 else
   echo ".env file already exists. Please ensure it contains the correct credentials."
 fi
 
 echo "Setup complete. Don't forget to activate the virtual environment with:"
 echo "  source .venv/bin/activate"
-echo "and fill in your .env file with the correct credentials."
