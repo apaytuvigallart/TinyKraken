@@ -29,7 +29,7 @@ if [ ! -f ".env" ]; then
   read -p "TWILIO_AUTH_TOKEN: " TWILIO_AUTH_TOKEN
   read -p "TWILIO_PHONE_NUMBER, include country code, i.e. +34: " TWILIO_PHONE_NUMBER
   read -p "TO_PHONE_NUMBER, include country code, i.e. +34: " TO_PHONE_NUMBER
-  read -p "GOOGLE_API_KEY: " GOOGLE _API_KEY
+  read -p "GOOGLE_API_KEY: " GOOGLE_API_KEY
 
   echo "Creating .env template file..."
   cat <<EOL > .env
