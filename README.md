@@ -54,9 +54,11 @@ This script:
    - `GEMINI_API_KEY`
 
 ## 🔥 How To Use It
-
-- Activate the virtual environment: `source .venv/bin/activate`.
-- Run `python hydration_reminder/main.py`.
+Simply activate the virtual environment and run `main.py`.
+```bash
+source .venv/bin/activate
+python hydration_reminder/main.py
+```
 
 ## ⏱️ How to Schedule It
 
