@@ -25,14 +25,19 @@ pip install -r requirements.txt
 
 # Create a sample .env file if it doesn't exist
 if [ ! -f ".env" ]; then
+  read -p "TWILIO_ACCOUNT_SID: " TWILIO_ACCOUNT_SID
+  read -p "TWILIO_AUTH_TOKEN: " TWILIO_AUTH_TOKEN
+  read -p "TWILIO_PHONE_NUMBER, include country code, i.e. +34: " TWILIO_PHONE_NUMBER
+  read -p "TO_PHONE_NUMBER, include country code, i.e. +34: " TO_PHONE_NUMBER
+  read -p "GOOGLE_API_KEY: " GOOGLE _API_KEY
+
   echo "Creating .env template file..."
   cat <<EOL > .env
-# Replace these placeholders with your actual keys and numbers
-TWILIO_ACCOUNT_SID="your_twilio_account_sid"
-TWILIO_AUTH_TOKEN="your_twilio_auth_token"
-TWILIO_PHONE_NUMBER="+1234567890"
-TO_PHONE_NUMBER="+0987654321"
-GEMINI_API_KEY="your_gemini_api_key"
+TWILIO_ACCOUNT_SID="$TWILIO_ACCOUNT_SID"
+TWILIO_AUTH_TOKEN="$TWILIO_AUTH_TOKEN"
+TWILIO_PHONE_NUMBER="$TWILIO_PHONE_NUMBER"
+TO_PHONE_NUMBER="$TO_PHONE_NUMBER"
+GOOGLE_API_KEY="$GOOGLE_API_KEY"
 EOL
   echo ".env file created. Please edit it with your credentials."
 else
