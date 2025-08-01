@@ -12,6 +12,7 @@ else
 fi
 
 # Activate the virtual environment
+sleep 5
 echo "Activating virtual environment..."
 source .venv/bin/activate
 
@@ -21,7 +22,7 @@ pip install --upgrade pip
 
 # Install dependencies
 echo "Installing dependencies from requirements.txt..."
-pip install -r requirements.txt
+pip install -r requirements.txt --no-cache-dir
 
 # Create a sample .env file if it doesn't exist
 if [ ! -f ".env" ]; then
