@@ -40,32 +40,27 @@ cd TinyKraken
 
 ### 2. Run the install script
 ```bash
-chmod +x install.sh
 ./install.sh
 ```
 This script:
 - Creates and activates `.venv` if it doesn't exist.
 - Creates `.env`, if it doesn't exist.
 - Installs dependencies from `requirements.txt`.
+- Asks to set up the Environment Variables:
+   - `TWILIO_ACCOUNT_SID`
+   - `TWILIO_AUTH_TOKEN`
+   - `TWILIO_PHONE_NUMBER`
+   - `TO_PHONE`
+   - `GEMINI_API_KEY`
 
-### 3. Set Up Environment Variables
-Change the values of the environment variables.
+## 🔥 How To Use It
 
-```env
-TWILIO_ACCOUNT_SID="your_twilio_account_sid"
-TWILIO_AUTH_TOKEN="your_twilio_auth_token"
-TWILIO_PHONE_NUMBER="+34123456789"
-TO_PHONE="+34987654321"
-GEMINI_API_KEY="your_gemini_api_key"
-```
+- Activate the virtual environment: `source .venv/bin/activate`.
+- Run `python hydration_reminder/main.py`.
 
 ## ⏱️ How to Schedule It
 
 TinyKraken does not currently handle scheduling on its own. You need to use a system scheduler like cron (Linux/macOS) or Task Scheduler (Windows).
-
-## How To Use It
-
-Simply run `python hydration_reminder/main.py`.
 
 ## 🛠️ Coming Soon
 TinyKraken will soon support cloud-based automation using:
