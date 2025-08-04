@@ -24,6 +24,17 @@ pip install --upgrade pip
 echo "Installing dependencies from requirements.txt..."
 pip install -r requirements.txt --no-cache-dir
 
+# Package the Python dependencies into a zip file
+echo "Packaging Python dependencies into tiny_kraken.zip..."
+deactivate
+cd .venv/lib/python3.11/site-packages
+zip -r ../../../../tiny_kraken.zip .
+
+# Add the Python files to the zip file
+echo "Adding Python files to tiny_kraken.zip..."
+cd ../../../../
+zip -j tiny_kraken.zip hydration_reminder/*.py
+
 # Create a sample .env file if it doesn't exist
 if [ ! -f ".env" ]; then
   read -p "TWILIO_ACCOUNT_SID: " TWILIO_ACCOUNT_SID

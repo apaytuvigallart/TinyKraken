@@ -8,7 +8,7 @@ from settings import (
 from twilio.rest import Client
 
 
-def main(receiver: str, sender: str) -> str:
+def lambda_handler(event, context) -> str:
     """
     Main function to send a notification using Twilio.
     """
@@ -18,13 +18,12 @@ def main(receiver: str, sender: str) -> str:
     try:
         sentence = generate_text()
         client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
-        client.messages.create(to=receiver, from_=sender, body=sentence)
+        client.messages.create(
+            to=TO_PHONE_NUMBER, from_=TWILIO_PHONE_NUMBER, body=sentence
+        )
         print("Message sent successfully: " + sentence)
         return "Message sent successfully: " + sentence
 
     except Exception as e:
         print(f"Failed to send message: {e}")
         return "Failed to send message: " + str(e)
-
-
-main(receiver=TO_PHONE_NUMBER, sender=TWILIO_PHONE_NUMBER)
