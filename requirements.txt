@@ -1,5 +1,5 @@
 twilio
 pre-commit
-google-genai
+# google-genai
 pytest
-python-dotenv
+# python-dotenv
