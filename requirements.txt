@@ -1,4 +1,4 @@
 twilio
 pre-commit
-# google-genai
+requests
 pytest

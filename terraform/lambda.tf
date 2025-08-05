@@ -38,6 +38,7 @@ resource "aws_lambda_function" "this" {
       TWILIO_PHONE_NUMBER = var.twilio_phone_number
       TO_PHONE_NUMBER     = var.to_phone_number
       GOOGLE_API_KEY      = var.google_api_key
+      GOOGLE_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
     }
   }
   logging_config {
