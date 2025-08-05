@@ -2,3 +2,4 @@ twilio
 pre-commit
 requests
 pytest
+aws-lambda-powertools
