@@ -27,7 +27,7 @@ data "archive_file" "this" {
   excludes    = ["${path.module}/../hydration_reminder/tests", "${path.module}/../hydration_reminder/__pycache__"]
 }
 
-resource "aws_lambda_function" "this" {
+resource "aws_lambda_function" "tiny_kraken" {
   function_name    = "tiny-kraken"
   handler          = "lambda_function.lambda_handler"
   runtime          = "python3.11"
