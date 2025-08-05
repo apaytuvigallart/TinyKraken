@@ -5,19 +5,10 @@ resource "aws_scheduler_schedule" "cron" {
   flexible_time_window {
     mode = "OFF"
   }
-  schedule_expression = "cron(0 14 * * 1-5)" # Every weekday at 14 PM UTC
+  schedule_expression = "cron(0 10 ? * 1-5 *)" # Every weekday at 10 AM UTC
 
   target {
     arn      = aws_lambda_function.tiny_kraken.arn
-    role_arn = aws_iam_role.lambda_exec.arn
+    role_arn = aws_iam_role.scheduler_role.arn
   }
-}
-
-resource "aws_lambda_permission" "allow_eventbridge" {
-  statement_id  = "AllowExecutionFromEventBridge"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.tiny_kraken.arn
-  principal     = "events.amazonaws.com"
-
-  source_arn = aws_scheduler_schedule.cron.arn
 }
