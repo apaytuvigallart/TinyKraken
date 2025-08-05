@@ -1,18 +1,16 @@
-# For now, I'm commenting out all related to Google GenAI, as I need to work on the error message
-# [ERROR] Runtime.ImportModuleError: Unable to import module 'main': No module named 'pydantic_core._pydantic_core'
-
-
-# from google.genai import Client
+import requests
+from settings import GOOGLE_API_KEY, GOOGLE_API_URL
 
 
 def generate_text() -> str:
     """
     Generate a short, funny sentence reminding someone to drink water
     """
-    # client = Client(api_key=GOOGLE_API_KEY)
-    # response = client.models.generate_content(
-    #    model="gemini-2.5-flash",
-    #    contents="Write a short, funny sentence (15 words or fewer) reminding someone to drink water. It should be playful, clever, and inspired by the Kraken myth or oceanic themes. No emojis.",
-    # )
 
-    return "Please, drink some water :)"  # Placeholder response for now
+    prompt = "Write a short, funny sentence (15 words or fewer) reminding someone to drink water. It should be playful, clever, and inspired by the Kraken myth or oceanic themes. No emojis."
+    url = GOOGLE_API_URL
+    headers = {"X-goog-api-key": GOOGLE_API_KEY, "Content-Type": "application/json"}
+    data = {"contents": [{"parts": [{"text": prompt}]}]}
+    response = requests.post(url, headers=headers, json=data)
+
+    return response.json()["candidates"][0]["content"]["parts"][0]["text"]

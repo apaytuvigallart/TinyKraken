@@ -1,19 +1,27 @@
-data "aws_iam_policy_document" "assume_role" {
-  statement {
-    effect = "Allow"
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
 
-    principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
 
-    actions = ["sts:AssumeRole"]
-  }
+resource "aws_iam_role" "lambda_exec" {
+  name = "lambda_exec_role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
 }
 
-resource "aws_iam_role" "lambda_execution_role" {
-  name               = "lambda_execution_role"
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
+  role       = aws_iam_role.lambda_exec.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
 data "archive_file" "this" {
@@ -29,7 +37,7 @@ resource "aws_lambda_function" "this" {
   runtime          = "python3.11"
   filename         = data.archive_file.this.output_path
   source_code_hash = data.archive_file.this.output_base64sha256
-  role             = aws_iam_role.lambda_execution_role.arn
+  role             = aws_iam_role.lambda_exec.arn
 
   environment {
     variables = {
@@ -38,6 +46,7 @@ resource "aws_lambda_function" "this" {
       TWILIO_PHONE_NUMBER = var.twilio_phone_number
       TO_PHONE_NUMBER     = var.to_phone_number
       GOOGLE_API_KEY      = var.google_api_key
+      GOOGLE_API_URL      = var.google_api_url
     }
   }
   logging_config {
