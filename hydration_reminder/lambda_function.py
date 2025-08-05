@@ -1,22 +1,26 @@
 from ai import generate_text
 from log import logger
-from twilio.base.exceptions import TwilioRestException
-from twilio.rest import Client
-
 from settings import (
     TO_PHONE_NUMBER,
     TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN,
     TWILIO_PHONE_NUMBER,
 )
+from twilio.base.exceptions import TwilioRestException
+from twilio.rest import Client
 
 
 def send_notification() -> str:
     """
-    Send a notification using Twilio with a generated text.
+    This function generates a short, funny sentence reminding someone to drink water and sends it as an SMS message using Twilio.
+
+    Returns:
+        str: Confirmation message indicating the text was sent successfully.
+    Raises:
+        TwilioRestException: If there is an error sending the message.
     """
 
-    if TWILIO_ACCOUNT_SID is None or TWILIO_AUTH_TOKEN is None:
+    if not TWILIO_ACCOUNT_SID or not TWILIO_AUTH_TOKEN:
         raise ValueError("Twilio credentials are not set, dropping ")
 
     try:
@@ -29,6 +33,7 @@ def send_notification() -> str:
         return "Message sent successfully: " + sentence
 
     except TwilioRestException as e:
+        logger.error("Failed to send notification", extra={"error": str(e)})
         raise e
 
 
@@ -45,4 +50,5 @@ def lambda_handler(event, context) -> str:
         return result
 
     except Exception as e:
+        logger.error("Lambda function failed", extra={"error": str(e)})
         raise e
