@@ -1,4 +1,6 @@
 import requests
+from log import logger
+
 from settings import GOOGLE_API_KEY, GOOGLE_API_URL
 
 
@@ -11,6 +13,15 @@ def generate_text() -> str:
     url = GOOGLE_API_URL
     headers = {"X-goog-api-key": GOOGLE_API_KEY, "Content-Type": "application/json"}
     data = {"contents": [{"parts": [{"text": prompt}]}]}
-    response = requests.post(url, headers=headers, json=data)
 
-    return response.json()["candidates"][0]["content"]["parts"][0]["text"]
+    try:
+        response = requests.post(url, headers=headers, json=data)
+        response.raise_for_status()
+
+        text = response.json()["candidates"][0]["content"]["parts"][0]["text"]
+        logger.info("Text generated successfully", extra={"text": text})
+
+        return text
+
+    except requests.exceptions.RequestException as e:
+        raise e
