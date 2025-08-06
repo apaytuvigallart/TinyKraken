@@ -5,7 +5,10 @@ from settings import GOOGLE_API_KEY, GOOGLE_API_URL
 
 def generate_text() -> str:
     """
-    Generate a short, funny sentence reminding someone to drink water
+    Generate a short, funny sentence reminding someone to drink water.
+
+    Returns:
+        str: Gemini's generated text.
     """
     if not GOOGLE_API_KEY or not GOOGLE_API_URL:
         raise ValueError("Google API credentials are not set, dropping")
