@@ -2,24 +2,23 @@
 TinyKraken is a lightweight personal tool that sends SMS reminders to help you stay hydrated throughout the day. If you're the kind of person who forgets to drink water (like me), TinyKraken has your back — one message at a time.
 
 ## 🧠 What Does It Do?
-TinyKraken sends a simple SMS message to your phone reminding you to drink water. Messages can be generated or personalized using **Gemini AI** to make them less repetitive or more encouraging.
+TinyKraken sends a simple SMS message to your phone reminding you to drink water every weekday at 10:00 UTC. Messages are generated using **Gemini AI** to make them less repetitive or more encouraging.
 
-> 🔔 **Note:** TinyKraken currently relies on a **manual scheduler**, such as a **cron job** on your system. In future versions, AWS-based automation (Lambda, EventBridge) will be available.
+## 📦 Pre-requisites
 
-## 📦 Requirements
-
-- The dependencies listed in `requirements.txt` (installed via `install.sh`).
-- A **Twilio account** (to buy a phone number and send SMS).
+- A **Twilio account** (to buy a phone number and send SMS notifications). 
 - A **Gemini AI API key** (for message generation).
+- Terraform. Please, follow this [documentation](https://developer.hashicorp.com/terraform/install) to install Terraform based on your OS.
+- **AWS Account** to create an `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to allow Terraform create the infrastructure.
 
 ## ☁️ API Setup
 
 ### 🔹 Twilio (for sending SMS)
 
-1. **Create a Twilio Account**: [https://www.twilio.com/](https://www.twilio.com/).
+1. **Create a Twilio Account**: Here is the [Console](https://console.twilio.com/).
 2. **Free Trial**: New accounts receive **$15 in credits**, enough for basic usage.
 3. **Buy a Phone Number**: Required to send messages.
-4. **Grab Your Credentials**:
+4. **Grab Your Credentials** and keep them close, they're required for the installation:
    - Account SID.
    - Auth Token.
    - Twilio Phone Number.
@@ -27,7 +26,13 @@ TinyKraken sends a simple SMS message to your phone reminding you to drink water
 
 ### 🔹 Gemini AI (for generating/personalizing messages)
 
-1. Simply follow [https://ai.google.dev/gemini-api/docs/api-key](https://ai.google.dev/gemini-api/docs/api-key) to create a key for free.
+1. Simply follow this [documentation](https://ai.google.dev/gemini-api/docs/api-key) to create a key for free.
+
+### 🔹 Terraform (for building the infrastructure)
+1. Simply make sure that Terraform is installed. Follow this [documentation](https://developer.hashicorp.com/terraform/install) to install Terraform.
+
+### 🔹 AWS (for hosting both the infrastructure and the code)
+1. Simply follow this [documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-keys-admin-managed.html#admin-create-access-key) to create an access key for your user.
 
 ## 🚀 Installation
 
@@ -42,32 +47,20 @@ cd TinyKraken
 ```bash
 ./install.sh
 ```
-This script:
-- Creates and activates `.venv` if it doesn't exist.
+This script does the following:
 - Creates `.env`, if it doesn't exist.
-- Installs dependencies from `requirements.txt`.
+- Creates and activates `.venv` if it doesn't exist.
+- Upgrades `pip` and then, it installs the dependencies from `requirements.txt`.
 - Asks to set up the Environment Variables:
    - `TWILIO_ACCOUNT_SID`
    - `TWILIO_AUTH_TOKEN`
    - `TWILIO_PHONE_NUMBER`
    - `TO_PHONE`
-   - `GEMINI_API_KEY`
+   - `GOOGLE_API_KEY`
+   - `AWS_ACCESS_KEY_ID`
+   - `AWS_SECRET_ACCESS_KEY`
+ - Writes the AWS credentials to `.env`. This will allow Terraform to create the infrastructure by using the credentials.
+ - Creates the infrastructure to AWS.
 
 ## 🔥 How To Use It
-Simply activate the virtual environment and run `main.py`.
-```bash
-source .venv/bin/activate
-python hydration_reminder/main.py
-```
-
-## ⏱️ How to Schedule It
-
-TinyKraken does not currently handle scheduling on its own. You need to use a system scheduler like cron (Linux/macOS) or Task Scheduler (Windows).
-
-## 🛠️ Coming Soon
-TinyKraken will soon support cloud-based automation using:
-- AWS Lambda (to run the Python script)
-- Amazon EventBridge (to schedule reminders)
-- Terraform (to manage infrastructure)
-
-This will eliminate the need for local scheduling and make deployment easier.
+Right now, AWS EventBridge Scheduler is scheduled to invoke the Lambda function on weekdays at 10:00 UTC. Feel free to change the cron to receive the notification whenever you want.
