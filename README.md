@@ -64,3 +64,10 @@ This script does the following:
 
 ## 🔥 How To Use It
 Right now, AWS EventBridge Scheduler is scheduled to invoke the Lambda function on weekdays at 10:00 UTC. Feel free to change the cron to receive the notification whenever you want.
+
+## 🙋 Heads Up  
+Note that, when you send a SMS notification from your free trial project, it will begin with `Sent from a Twilio Trial account`. This message will be removed once your project has been upgraded. You can find more information about Twilio Free Trial limitations [here](https://help.twilio.com/articles/360036052753-Twilio-Free-Trial-Limitations#h_306ae9a5-c8bd-4859-9459-98acb7b4e3e3).
+
+## 💻 Architecture Design
+<img width="1218" height="804" alt="image" src="https://github.com/user-attachments/assets/f66e17c9-d68b-41ae-ae35-c2bf6c232811" />
+
