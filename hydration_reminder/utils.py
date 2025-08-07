@@ -15,11 +15,11 @@ from twilio.rest import Client
 
 
 def save_item(text: str):
-    id = uuid.uuid4()
-    created_by = datetime.now(timezone.utc)
+    id = str(uuid.uuid4())
+    created_at = datetime.now(timezone.utc)
 
     try:
-        item = TinyKrakenEntry(id=id, text=text, created_by=created_by)
+        item = TinyKrakenEntry(id=id, text=text, created_at=created_at)
         item.save()
         return item
 
