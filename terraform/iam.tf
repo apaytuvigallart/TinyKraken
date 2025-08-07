@@ -16,10 +16,34 @@ resource "aws_iam_role" "lambda_exec" {
   })
 }
 
+resource "aws_iam_policy" "lambda_basic_dynamodb" {
+  name        = "lambda-basic-dynamodb-policy"
+  description = "Policy to allow Lambda to PutItem, GetItem and DeleteItem to DynamoDB"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "dynamodb:PutItem",
+          "dynamodb:GetItem",
+          "dynamodb:DeleteItem",
+        ]
+        Effect   = "Allow"
+        Resource = aws_dynamodb_table.tiny_kraken_db.arn
+      }
+    ]
+  })
+}
+resource "aws_iam_role_policy_attachment" "lambda_basic_dynamodb" {
+  role       = aws_iam_role.lambda_exec.name
+  policy_arn = aws_iam_policy.lambda_basic_dynamodb.arn
+}
+
 resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
   role       = aws_iam_role.lambda_exec.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
+
 
 ### EVENTBRIDGE SCHEDULER
 
