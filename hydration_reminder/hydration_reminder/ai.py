@@ -1,6 +1,7 @@
 import requests
-from log import logger
-from settings import GOOGLE_API_KEY, GOOGLE_API_URL
+
+from hydration_reminder.log import logger
+from hydration_reminder.settings import GOOGLE_API_KEY, GOOGLE_API_URL
 
 
 def generate_text() -> str:
