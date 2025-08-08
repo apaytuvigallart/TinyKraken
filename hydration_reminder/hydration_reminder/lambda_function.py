@@ -1,6 +1,6 @@
-from ai import generate_text
-from log import logger
-from utils import save_item, send_notification
+from hydration_reminder.ai import generate_text
+from hydration_reminder.log import logger
+from hydration_reminder.utils import save_item, send_notification
 
 
 def lambda_handler(event, context) -> str:

@@ -2,7 +2,7 @@ data "archive_file" "this" {
   type        = "zip"
   source_dir  = "${path.module}/../hydration_reminder"
   output_path = "${path.module}/../tiny_kraken.zip"
-  excludes    = ["tests", "__pycache__"]
+  excludes    = ["tests"]
 }
 
 resource "aws_lambda_function" "tiny_kraken" {
