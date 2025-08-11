@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "tiny-kraken"
+    bucket = "tiny-kraken" # remember to create this bucket before initializing Terraform
     key    = "infra/terraform.tfstate"
     region = "eu-west-1"
   }
