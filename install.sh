@@ -50,7 +50,7 @@ echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env
 # Creating infrastructure with Terraform
 echo "Creating the infrastructure with Terraform..."
 source .env
-cd terraform
+cd infrastructure
 terraform init
 terraform apply -auto-approve -var="twilio_account_sid=$TWILIO_ACCOUNT_SID" -var="twilio_auth_token=$TWILIO_AUTH_TOKEN" -var="twilio_phone_number=$TWILIO_PHONE_NUMBER" -var="to_phone_number=$TO_PHONE_NUMBER" -var="google_api_key=$GOOGLE_API_KEY"
 cd ..
