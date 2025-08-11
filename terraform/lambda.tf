@@ -2,12 +2,12 @@ data "archive_file" "this" {
   type        = "zip"
   source_dir  = "${path.module}/../hydration_reminder"
   output_path = "${path.module}/../tiny_kraken.zip"
-  excludes    = ["tests", "__pycache__"]
+  excludes    = ["tests"]
 }
 
 resource "aws_lambda_function" "tiny_kraken" {
   function_name    = "tiny-kraken"
-  handler          = "lambda_function.lambda_handler"
+  handler          = "hydration_reminder.lambda_function.lambda_handler"
   runtime          = "python3.11"
   filename         = data.archive_file.this.output_path
   source_code_hash = data.archive_file.this.output_base64sha256

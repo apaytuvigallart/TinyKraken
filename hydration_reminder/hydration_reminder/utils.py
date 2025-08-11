@@ -1,17 +1,18 @@
 import uuid
 from datetime import datetime, timezone
 
-from db import TinyKrakenEntry
-from log import logger
 from pynamodb.exceptions import PutError
-from settings import (
+from twilio.base.exceptions import TwilioRestException
+from twilio.rest import Client
+
+from hydration_reminder.db import TinyKrakenEntry
+from hydration_reminder.log import logger
+from hydration_reminder.settings import (
     TO_PHONE_NUMBER,
     TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN,
     TWILIO_PHONE_NUMBER,
 )
-from twilio.base.exceptions import TwilioRestException
-from twilio.rest import Client
 
 
 def save_item(text: str):
