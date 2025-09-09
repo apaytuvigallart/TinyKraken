@@ -14,6 +14,8 @@ def generate_text() -> str:
 
     prompt = "Write a short, funny sentence (15 words or fewer) reminding someone to drink water. It should be playful, clever, and inspired by the Kraken myth or oceanic themes. No emojis."
     headers = {"X-goog-api-key": GOOGLE_API_KEY, "Content-Type": "application/json"}
+    test = "hello"
+    print(test)
     data = {"contents": [{"parts": [{"text": prompt}]}]}
 
     try:
