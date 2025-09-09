@@ -16,6 +16,17 @@ from hydration_reminder.settings import (
 
 
 def save_item(text: str):
+    """
+    Saves an item to the database.
+
+    Args:
+        text (str): The text to save.
+    Returns:
+        TinyKrakenEntry item.
+    Raises:
+        PutError: If there is an error saving the item.
+    """
+
     id = str(uuid.uuid4())
     created_at = datetime.now(timezone.utc)
 
@@ -31,10 +42,12 @@ def save_item(text: str):
 
 def send_notification(text: str) -> bool:
     """
-    This function sends a short, funny SMS reminding someone to drink water.
+    Sends a short, funny SMS reminding someone to drink water.
 
+    Args:
+        text (str): The text to send.
     Returns:
-        bool: True if worked.
+        True if worked.
     Raises:
         TwilioRestException: If there is an error sending the message.
     """
