@@ -4,7 +4,7 @@ from pynamodb.models import Model
 
 class TinyKrakenEntry(Model):
     """
-    TinyKraken Entry item
+    TinyKraken Entry Model class
     """
 
     class Meta:
