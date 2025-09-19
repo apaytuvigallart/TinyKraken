@@ -4,11 +4,11 @@
 set -e
 
 # Check if virtual environment folder exists
-if [ ! -d ".env" ]; then
+if [ ! -f ".env" ]; then
   echo "Creating config file..."
   touch .env
 else
-  echo "Config file already exists."
+  echo ".env file already exists."
 fi
 
 # Check if virtual environment folder exists
@@ -16,7 +16,7 @@ if [ ! -d ".venv" ]; then
   echo "Creating Python virtual environment..."
   python3.11 -m venv .venv
 else
-  echo "Virtual environment already exists."
+  echo "Virtual environment .venv already exists."
 fi
 
 # Activate the virtual environment
@@ -25,22 +25,24 @@ source .venv/bin/activate
 
 # Upgrade pip
 echo "Upgrading pip..."
-pip install --upgrade pip
+pip install -q --upgrade pip
 
 # Install dependencies
 echo "Installing dependencies from requirements.txt..."
-pip install -r requirements.txt -t hydration_reminder --no-cache-dir
+pip install -q -r requirements.txt -t services --no-cache-dir --upgrade
 
 # Get Twilio credentials, user's phone number and Google API key
-read -p "TWILIO_ACCOUNT_SID: " TWILIO_ACCOUNT_SID
-read -p "TWILIO_AUTH_TOKEN: " TWILIO_AUTH_TOKEN
-read -p "TWILIO_PHONE_NUMBER, include country code, i.e. +34: " TWILIO_PHONE_NUMBER
-read -p "TO_PHONE_NUMBER, include country code, i.e. +34: " TO_PHONE_NUMBER
-read -p "GOOGLE_API_KEY: " GOOGLE_API_KEY
+echo "Please enter the following credentials. Input is hidden for security reasons."
+read -sp "TWILIO_ACCOUNT_SID: " TWILIO_ACCOUNT_SID; echo
+read -sp "TWILIO_AUTH_TOKEN: " TWILIO_AUTH_TOKEN; echo
+read -sp "TWILIO_PHONE_NUMBER, include country code, i.e. +34: " TWILIO_PHONE_NUMBER; echo
+read -sp "TO_PHONE_NUMBER, include country code, i.e. +34: " TO_PHONE_NUMBER; echo
+read -sp "GOOGLE_API_KEY: " GOOGLE_API_KEY; echo
 
 # Get AWS credentials to allow Terraform to create resources
-read -p "AWS_ACCESS_KEY_ID: " AWS_ACCESS_KEY_ID
-read -p "AWS_SECRET_ACCESS_KEY: " AWS_SECRET_ACCESS_KEY
+echo "Please enter your AWS credentials. Input is hidden for security reasons."
+read -sp "AWS_ACCESS_KEY_ID: " AWS_ACCESS_KEY_ID; echo
+read -sp "AWS_SECRET_ACCESS_KEY: " AWS_SECRET_ACCESS_KEY; echo
 
 # Write credentials to .env file
 echo "Writing credentials to .env file..."

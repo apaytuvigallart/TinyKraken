@@ -75,7 +75,7 @@ resource "aws_iam_role_policy" "eventbridge_invoke_policy" {
           "lambda:InvokeFunction"
         ],
         "Effect" : "Allow",
-        "Resource" : aws_lambda_function.tiny_kraken.arn
+        "Resource" : aws_lambda_function.tiny_kraken_hydration_reminder.arn
       }
     ]
   })
