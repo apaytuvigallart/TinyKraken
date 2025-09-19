@@ -7,7 +7,7 @@ data "archive_file" "this" {
 
 resource "aws_lambda_function" "tiny_kraken" {
   function_name    = "tiny-kraken"
-  handler          = "hydration_reminder.lambda_function.lambda_handler"
+  handler          = "hydration_reminder.handler.lambda_handler"
   runtime          = "python3.11"
   filename         = data.archive_file.this.output_path
   source_code_hash = data.archive_file.this.output_base64sha256
