@@ -1,18 +1,26 @@
-data "archive_file" "this" {
+data "archive_file" "tiny_kraken_hydration_reminder_file" {
   type        = "zip"
-  source_dir  = "${path.module}/../hydration_reminder"
-  output_path = "${path.module}/../tiny_kraken.zip"
-  excludes    = ["tests"]
+  source_dir  = "${path.module}/../services"
+  output_path = "${path.module}/../tiny_kraken_hydration_reminder.zip"
+  excludes    = ["tests", "api"]
 }
 
-resource "aws_lambda_function" "tiny_kraken" {
-  function_name    = "tiny-kraken"
+data "archive_file" "tiny_kraken_api_file" {
+  type        = "zip"
+  source_dir  = "${path.module}/../services"
+  output_path = "${path.module}/../tiny_kraken_api.zip"
+  excludes    = ["tests", "hydration_reminder"]
+}
+
+resource "aws_lambda_function" "tiny_kraken_hydration_reminder" {
+  function_name    = "tiny-kraken-hydration-reminder"
   handler          = "hydration_reminder.handler.lambda_handler"
   runtime          = "python3.11"
-  filename         = data.archive_file.this.output_path
-  source_code_hash = data.archive_file.this.output_base64sha256
+  filename         = data.archive_file.tiny_kraken_hydration_reminder_file.output_path
+  source_code_hash = data.archive_file.tiny_kraken_hydration_reminder_file.output_base64sha256
   role             = aws_iam_role.lambda_exec.arn
-
+  tags             = merge(var.common_tags, { Service = "HydrationReminder" })
+  timeout          = 30
   environment {
     variables = {
       TWILIO_ACCOUNT_SID  = var.twilio_account_sid
@@ -25,10 +33,23 @@ resource "aws_lambda_function" "tiny_kraken" {
   }
   logging_config {
     log_format = "Text"
-    log_group  = aws_cloudwatch_log_group.this.name
+    log_group  = aws_cloudwatch_log_group.tiny_kraken_hydration_reminder.name
   }
+}
 
-  tags = var.common_tags
+resource "aws_lambda_function" "tiny_kraken_api" {
+  function_name    = "tiny-kraken-api"
+  handler          = "api.handler.lambda_handler"
+  runtime          = "python3.11"
+  filename         = data.archive_file.tiny_kraken_api_file.output_path
+  source_code_hash = data.archive_file.tiny_kraken_api_file.output_base64sha256
+  role             = aws_iam_role.lambda_exec.arn
+  tags             = merge(var.common_tags, { Service = "API" })
+  timeout          = 30
 
-  timeout = 30
+
+  logging_config {
+    log_format = "Text"
+    log_group  = aws_cloudwatch_log_group.tiny_kraken_api.name
+  }
 }

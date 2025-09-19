@@ -253,3 +253,9 @@ terraform.rc
 
 # .zip
 *.zip
+
+# Ignore all files and folders in the services directory except the microservices
+services/*
+!services/api/
+!services/hydration_reminder/
+!services/tests/
