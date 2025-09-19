@@ -6,15 +6,18 @@ TinyKraken sends a simple SMS message to your phone reminding you to drink water
 
 ## 📦 Pre-requisites
 
+- Have **Python** installed, specifically `3.11`. 
 - A **Twilio account** (to buy a phone number and send SMS notifications). 
 - A **Gemini AI API key** (for message generation).
-- **AWS Account** to create an `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to allow Terraform create the infrastructure.
+- An **AWS Account** to create an `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to allow Terraform create the infrastructure.
 - Terraform.
    - Follow this [documentation](https://developer.hashicorp.com/terraform/install) to install Terraform based on your OS.
    - Create a bucket called `tiny-kraken` in your AWS Account. This is required as `.tfstate` is stored there.
 
 ## ☁️ API Setup
 
+### Python 🐍
+1. Simply download the installer from the [official Python website](https://www.python.org/).
 ### 🔹 Twilio (for sending SMS)
 
 1. **Create a Twilio Account**: Here is the [Console](https://console.twilio.com/).
