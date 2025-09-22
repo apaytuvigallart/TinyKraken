@@ -63,6 +63,11 @@ resource "aws_api_gateway_integration" "comment_integration" {
 # Deployments for the API Gateway
 resource "aws_api_gateway_deployment" "tinykraken_deployment" {
   rest_api_id = aws_api_gateway_rest_api.tinykraken_api.id
+
+  depends_on = [
+    aws_api_gateway_integration.comments_integration,
+    aws_api_gateway_integration.comment_integration,
+  ]
 }
 
 # Stages for the API Gateway
@@ -72,6 +77,7 @@ resource "aws_api_gateway_stage" "prod" {
   deployment_id = aws_api_gateway_deployment.tinykraken_deployment.id
 }
 
+# Permissions for API Gateway to invoke the Lambda function
 resource "aws_lambda_permission" "apigw_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
