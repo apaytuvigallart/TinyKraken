@@ -11,7 +11,7 @@ def list_comments() -> dict:
     """
     Get all comments
     """
-    pass  # To be implemented
+    return api_manager.list_comments()
 
 
 @app.get("/comments/<comment_id>")
