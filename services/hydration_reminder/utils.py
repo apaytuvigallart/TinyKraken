@@ -26,12 +26,11 @@ def save_item(text: str):
     Raises:
         PutError: If there is an error saving the item.
     """
-
-    id = str(uuid.uuid4())
+    sk = str(uuid.uuid4())
     created_at = datetime.now(timezone.utc)
 
     try:
-        item = TinyKrakenEntry(id=id, text=text, created_at=created_at)
+        item = TinyKrakenEntry(sk=sk, text=text, created_at=created_at)
         item.save()
         return item
 
