@@ -27,9 +27,13 @@ resource "aws_iam_policy" "lambda_basic_dynamodb" {
           "dynamodb:PutItem",
           "dynamodb:GetItem",
           "dynamodb:DeleteItem",
+          "dynamodb:Query",
         ]
-        Effect   = "Allow"
-        Resource = aws_dynamodb_table.tiny_kraken_db.arn
+        Effect = "Allow"
+        Resource = [
+          aws_dynamodb_table.tiny_kraken_db.arn,
+          "${aws_dynamodb_table.tiny_kraken_db.arn}/index/*"
+        ]
       }
     ]
   })
