@@ -2,14 +2,14 @@ data "archive_file" "tiny_kraken_hydration_reminder_file" {
   type        = "zip"
   source_dir  = "${path.module}/../services"
   output_path = "${path.module}/../tiny_kraken_hydration_reminder.zip"
-  excludes    = ["tests", "api"]
+  excludes    = ["tests"]
 }
 
 data "archive_file" "tiny_kraken_api_file" {
   type        = "zip"
   source_dir  = "${path.module}/../services"
   output_path = "${path.module}/../tiny_kraken_api.zip"
-  excludes    = ["tests", "hydration_reminder"]
+  excludes    = ["tests"]
 }
 
 resource "aws_lambda_function" "tiny_kraken_hydration_reminder" {

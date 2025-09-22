@@ -12,7 +12,7 @@ def generate_text() -> str:
     if not GOOGLE_API_KEY or not GOOGLE_API_URL:
         raise ValueError("Google API credentials are not set, dropping")
 
-    prompt = "Write a short, funny sentence (15 words or fewer) reminding someone to drink water. It should be playful, clever, and inspired by the Kraken myth or oceanic themes. No emojis."
+    prompt = "Write a short, funny sentence (15 words or fewer) reminding someone to drink water. It should be playful, clever, and inspired by the Kraken myth or oceanic themes. No emojis. No line break or newline character, such as \\n or <br>."
     headers = {"X-goog-api-key": GOOGLE_API_KEY, "Content-Type": "application/json"}
     data = {"contents": [{"parts": [{"text": prompt}]}]}
 
