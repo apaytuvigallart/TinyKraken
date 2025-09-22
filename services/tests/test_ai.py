@@ -35,7 +35,7 @@ def test_ai_text_generation(mock_post):
                     {
                         "parts": [
                             {
-                                "text": "Write a short, funny sentence (15 words or fewer) reminding someone to drink water. It should be playful, clever, and inspired by the Kraken myth or oceanic themes. No emojis."
+                                "text": "Write a short, funny sentence (15 words or fewer) reminding someone to drink water. It should be playful, clever, and inspired by the Kraken myth or oceanic themes. No emojis. No line break or newline character, such as \\n or <br>."
                             }
                         ]
                     }

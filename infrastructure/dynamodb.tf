@@ -1,7 +1,7 @@
 resource "aws_dynamodb_table" "tiny_kraken_db" {
   name           = "tiny-kraken-db"
   hash_key       = "pk"
-  range_key      = "sk"
+  range_key      = "comment_id"
   read_capacity  = 5
   write_capacity = 5
   attribute {
@@ -9,22 +9,10 @@ resource "aws_dynamodb_table" "tiny_kraken_db" {
     type = "S"
   }
   attribute {
-    name = "sk"
-    type = "S"
-  }
-  attribute {
-    name = "created_at"
+    name = "comment_id"
     type = "S"
   }
 
   tags = var.common_tags
 
-  global_secondary_index {
-    name            = "TinyKrakenGlobalSecondaryIndex"
-    hash_key        = "pk"
-    range_key       = "created_at"
-    projection_type = "ALL"
-    read_capacity   = 5
-    write_capacity  = 5
-  }
 }
