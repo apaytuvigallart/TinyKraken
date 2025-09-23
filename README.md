@@ -73,7 +73,16 @@ Right now, AWS EventBridge Scheduler is scheduled to invoke the Lambda function 
 ## 🙋 Heads Up  
 Note that, when you send a SMS notification from your Twilio free trial project, the message will begin with `Sent from a Twilio Trial account`. This will be removed once you upgrade your Twilio project. You can find more information about Twilio Free Trial limitations [here](https://help.twilio.com/articles/360036052753-Twilio-Free-Trial-Limitations#h_306ae9a5-c8bd-4859-9459-98acb7b4e3e3).
 
+## 👮 Authentication
+To access the API Gateway resources, you must authenticate using valid AWS credentials. Specifically, an `Access Key ID`, `Secret Access Key` and `Region` are required. You can generate these credentials by following the official [AWS documentation](https://docs.aws.amazon.com/keyspaces/latest/devguide/create.keypair.html).
+
+Once generated, provide these credentials in your requests to ensure secure access to the API Gateway. For reference, you can review this example using [Postman](https://www.postman.com/). 
+
+<img width="1143" height="603" alt="image" src="https://github.com/user-attachments/assets/f267a4a4-18e6-43a0-a308-076281000b16" />
+
 ## 💻 Architecture Design
-<img width="1499" height="749" alt="image" src="https://github.com/user-attachments/assets/cf9b704e-0a6c-4532-a5e3-03449b671b2e" />
+### hydration_reminder
+<img width="1797" height="827" alt="image" src="https://github.com/user-attachments/assets/8221dd3c-cf18-4877-98b2-6aa35e037217" />
 
-
+### api
+<img width="983" height="445" alt="image" src="https://github.com/user-attachments/assets/2243f249-5988-400f-a878-142b6fc6594f" />
