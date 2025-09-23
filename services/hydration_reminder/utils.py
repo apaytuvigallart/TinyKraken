@@ -1,12 +1,12 @@
 import uuid
 from datetime import datetime, timezone
 
+from log.logger import logger
 from pynamodb.exceptions import PutError
 from twilio.base.exceptions import TwilioRestException
 from twilio.rest import Client
 
 from hydration_reminder.db import TinyKrakenEntry
-from hydration_reminder.log import logger
 from hydration_reminder.settings import (
     TO_PHONE_NUMBER,
     TWILIO_ACCOUNT_SID,
@@ -32,6 +32,7 @@ def save_item(text: str):
     try:
         item = TinyKrakenEntry(comment_id=comment_id, text=text, created_at=created_at)
         item.save()
+        logger.info("TinyKrakenEntry item created successfully", extra={"item": item})
         return item
 
     except PutError as e:

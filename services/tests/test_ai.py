@@ -1,6 +1,7 @@
 from unittest.mock import Mock, patch
 
 from hydration_reminder.ai import generate_text
+from hydration_reminder.settings import PROMPT
 
 MOCKED_AI_TEXT = "Mocked AI generated text"
 
@@ -30,15 +31,5 @@ def test_ai_text_generation(mock_post):
                 "X-goog-api-key": "mocked_google_api_key",
                 "Content-Type": "application/json",
             },
-            json={
-                "contents": [
-                    {
-                        "parts": [
-                            {
-                                "text": "Write a short, funny sentence (15 words or fewer) reminding someone to drink water. It should be playful, clever, and inspired by the Kraken myth or oceanic themes. No emojis. No line break or newline character, such as \\n or <br>."
-                            }
-                        ]
-                    }
-                ]
-            },
+            json={"contents": [{"parts": [{"text": PROMPT}]}]},
         )

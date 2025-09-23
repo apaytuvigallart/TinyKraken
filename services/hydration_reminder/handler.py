@@ -1,5 +1,6 @@
+from log.logger import logger
+
 from hydration_reminder.ai import generate_text
-from hydration_reminder.log import logger
 from hydration_reminder.utils import save_item, send_notification
 
 
@@ -8,7 +9,7 @@ def lambda_handler(event, context) -> str:
     Main function to handle the Lambda event and context.
     """
 
-    logger.info("Lambda function started", extra={"event": event})
+    logger.info("Lambda function initialized", extra={"event": event})
 
     try:
         text = generate_text()
