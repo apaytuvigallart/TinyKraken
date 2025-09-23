@@ -68,6 +68,17 @@ resource "aws_api_gateway_deployment" "tinykraken_deployment" {
     aws_api_gateway_integration.comments_integration,
     aws_api_gateway_integration.comment_integration,
   ]
+
+  triggers = {
+    redeployment = sha1(jsonencode([
+      aws_api_gateway_method.list_comments.id,
+      aws_api_gateway_method.get_comment_id.id,
+    ]))
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # Stages for the API Gateway

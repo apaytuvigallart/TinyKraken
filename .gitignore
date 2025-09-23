@@ -258,4 +258,5 @@ terraform.rc
 services/*
 !services/api/
 !services/hydration_reminder/
+!services/log/
 !services/tests/
