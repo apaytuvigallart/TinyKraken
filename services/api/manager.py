@@ -45,6 +45,7 @@ class TinyKrakenAPIManager:
     def get_comment(self, comment_id: str) -> Response:
         comment = self.model.get_comment(comment_id)
         if comment is None:
+            logger.info("Comment not found")
             return Response(
                 status_code=HTTPStatus.NOT_FOUND,
                 content_type=content_types.APPLICATION_JSON,
