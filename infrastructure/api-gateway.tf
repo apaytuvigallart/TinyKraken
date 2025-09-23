@@ -29,14 +29,14 @@ resource "aws_api_gateway_method" "list_comments" {
   rest_api_id   = aws_api_gateway_rest_api.tinykraken_api.id
   resource_id   = aws_api_gateway_resource.comments.id
   http_method   = "GET"
-  authorization = "NONE"
+  authorization = "AWS_IAM"
 }
 
 resource "aws_api_gateway_method" "get_comment_id" {
   rest_api_id   = aws_api_gateway_rest_api.tinykraken_api.id
   resource_id   = aws_api_gateway_resource.comment_id.id
   http_method   = "GET"
-  authorization = "NONE"
+  authorization = "AWS_IAM"
 }
 
 # Integrations for the API Gateway resources
