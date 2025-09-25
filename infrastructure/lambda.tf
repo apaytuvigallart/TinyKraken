@@ -14,7 +14,7 @@ data "archive_file" "tiny_kraken_api_file" {
 
 resource "aws_lambda_function" "tiny_kraken_hydration_reminder" {
   function_name    = "tiny-kraken-hydration-reminder"
-  handler          = "hydration_reminder.handler.lambda_handler"
+  handler          = "hydration_reminder.hydration_reminder.handler.lambda_handler"
   runtime          = "python3.11"
   filename         = data.archive_file.tiny_kraken_hydration_reminder_file.output_path
   source_code_hash = data.archive_file.tiny_kraken_hydration_reminder_file.output_base64sha256

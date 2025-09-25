@@ -257,6 +257,7 @@ terraform.rc
 # Ignore all files and folders in the services directory except the microservices
 services/*
 !services/README.md
+!services/conftest.py
 !services/api/
 !services/hydration_reminder/
 !services/log/
