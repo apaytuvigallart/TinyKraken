@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from api.manager import TinyKrakenAPIManager
+from api.api.manager import TinyKrakenAPIManager
 from aws_lambda_powertools.event_handler import content_types
 
 
