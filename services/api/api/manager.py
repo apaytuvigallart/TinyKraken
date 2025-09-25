@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from aws_lambda_powertools.event_handler import Response, content_types
 from aws_lambda_powertools.event_handler.exceptions import InternalServerError
-from hydration_reminder.db import TinyKrakenEntry
+from hydration_reminder.hydration_reminder.db import TinyKrakenEntry
 from log.logger import logger
 
 

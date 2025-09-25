@@ -1,11 +1,11 @@
 import datetime
 
 import pytest
-from hydration_reminder.db import TinyKrakenEntry
+from hydration_reminder.hydration_reminder.db import TinyKrakenEntry
 
 
 @pytest.fixture
-def comments():
+def tiny_kraken_entries():
     return [
         TinyKrakenEntry(
             pk="hydration_reminder",
@@ -35,7 +35,7 @@ def comments():
 
 
 @pytest.fixture
-def comment():
+def tiny_kraken_entry():
     return TinyKrakenEntry(
         pk="hydration_reminder",
         comment_id="comment_id_4",
