@@ -1,7 +1,7 @@
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver, Response
 from log.logger import logger
 
-from api.manager import TinyKrakenAPIManager
+from .manager import TinyKrakenAPIManager
 
 app = APIGatewayRestResolver()
 api_manager = TinyKrakenAPIManager()
