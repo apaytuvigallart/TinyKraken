@@ -1,3 +1,7 @@
+![Python](https://img.shields.io/badge/python-3.11-blue)
+![Terraform](https://img.shields.io/badge/terraform-1.12.2-623ce4)
+![Gemini](https://img.shields.io/badge/gemini%20flash-2.0-ff69b4)
+
 # TinyKraken 🐙
 TinyKraken is a lightweight personal tool that sends SMS reminders to help you stay hydrated throughout the day. If you're the kind of person who forgets to drink water (like me), TinyKraken has your back — one message at a time.
 
