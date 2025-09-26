@@ -15,7 +15,9 @@ TinyKraken sends a simple SMS message to your phone reminding you to drink water
 - A **Gemini AI API key** (for message generation).
 - An **AWS Account** to create the following resources:
    - An `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to allow Terraform creates the infrastructure.
-   - A S3 bucket called `tiny-kraken`. This is required as `.tfstate` is stored there.
+- Create a **S3 bucket**.
+   - Follow this [documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html) to create the bucket. Note the bucket name and region. This is very important as the `.tfstate` file is stored there.
+   - In `infrastructure/provider.tf`, change the bucket name and region. If you also want to create your infrastructure in another region, you can also change [line 16](https://github.com/apaytuvigallart/TinyKraken/blob/ff0f60f3fd6905cad4f1bc625c30f9d35cbe1352/infrastructure/provider.tf#L16).
 - **Terraform**.
    - Follow this [documentation](https://developer.hashicorp.com/terraform/install) to install Terraform based on your OS.
   
