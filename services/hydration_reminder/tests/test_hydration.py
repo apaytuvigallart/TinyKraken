@@ -1,12 +1,38 @@
 from unittest.mock import Mock
 
+from hydration_reminder.hydration_reminder.ai import generate_text
 from hydration_reminder.hydration_reminder.db import TinyKrakenEntry
 from hydration_reminder.hydration_reminder.utils import save_item, send_notification
 
+TEXT = "Stay hydrated!"
+
 
 def test_generate_text(monkeypatch):
-    # to do
-    pass
+    # Create mock for the output of requests.post
+    mock_response = Mock()
+    mock_response.json.return_value = {
+        "candidates": [{"content": {"parts": [{"text": TEXT}]}}]
+    }
+
+    # Create mock for requests.post
+    mock_post = Mock(return_value=mock_response)
+
+    # Patch requests.post, the API key and URL
+    monkeypatch.setattr(
+        "hydration_reminder.hydration_reminder.ai.requests.post", mock_post
+    )
+    monkeypatch.setattr(
+        "hydration_reminder.hydration_reminder.ai.GOOGLE_API_KEY", "test_key"
+    )
+    monkeypatch.setattr(
+        "hydration_reminder.hydration_reminder.ai.GOOGLE_API_URL", "https://test.url"
+    )
+
+    # Test the function
+    result = generate_text()
+    assert result == TEXT
+    assert mock_post.call_args[0][0] == "https://test.url"
+    mock_post.assert_called_once()
 
 
 def test_save_item(monkeypatch):
@@ -17,9 +43,9 @@ def test_save_item(monkeypatch):
     )
 
     # Test the function
-    result = save_item("Drink water!")
+    result = save_item(TEXT)
     assert isinstance(result, TinyKrakenEntry)
-    assert result.text == "Drink water!"
+    assert result.text == TEXT
 
 
 def test_send_notification(monkeypatch):
@@ -49,5 +75,5 @@ def test_send_notification(monkeypatch):
     )
 
     # Test the function
-    result = send_notification("Drink water!")
+    result = send_notification(TEXT)
     assert result is True
