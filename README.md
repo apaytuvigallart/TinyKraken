@@ -13,11 +13,12 @@ TinyKraken sends a simple SMS message to your phone reminding you to drink water
 - Have **Python** installed, specifically `3.11`. 
 - A **Twilio account** (to buy a phone number and send SMS notifications). 
 - A **Gemini AI API key** (for message generation).
-- An **AWS Account** to create an `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to allow Terraform create the infrastructure.
-- Terraform.
+- An **AWS Account** to create the following resources:
+   - An `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to allow Terraform creates the infrastructure.
+   - A S3 bucket called `tiny-kraken`. This is required as `.tfstate` is stored there.
+- **Terraform**.
    - Follow this [documentation](https://developer.hashicorp.com/terraform/install) to install Terraform based on your OS.
-   - Create a bucket called `tiny-kraken` in your AWS Account. This is required as `.tfstate` is stored there.
-
+  
 ## ☁️ API Setup
 
 ### Python 🐍
@@ -42,6 +43,7 @@ TinyKraken sends a simple SMS message to your phone reminding you to drink water
 
 ### 🔹 AWS (for hosting both the infrastructure and the code)
 1. Simply follow this [documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-keys-admin-managed.html#admin-create-access-key) to create an access key for your user.
+2. Simply follow this [documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html) to create a S3 bucket.
 
 ## 🚀 Installation
 
@@ -69,16 +71,18 @@ This script does the following:
    - `AWS_ACCESS_KEY_ID`
    - `AWS_SECRET_ACCESS_KEY`
  - Writes the AWS credentials to `.env`. This will allow Terraform to create the infrastructure by using the credentials.
- - Creates the infrastructure to AWS.
+ - Initializes Terraform and creates the infrastructure to AWS.
 
 ## 🔥 How To Use It
-Right now, AWS EventBridge Scheduler is scheduled to invoke the Lambda function on weekdays at 10:00 UTC. Feel free to change the cron to receive the notification whenever you want.
+Right now, AWS EventBridge Scheduler is scheduled to invoke the Lambda function on weekdays at 10:00 UTC. Feel free to change the cron (either directly in the code or once the EventBridge Scheduler is created) to receive the notification whenever you want.
 
 ## 🙋 Heads Up  
 Note that, when you send a SMS notification from your Twilio free trial project, the message will begin with `Sent from a Twilio Trial account`. This will be removed once you upgrade your Twilio project. You can find more information about Twilio Free Trial limitations [here](https://help.twilio.com/articles/360036052753-Twilio-Free-Trial-Limitations#h_306ae9a5-c8bd-4859-9459-98acb7b4e3e3).
 
 ## 👮 Authentication
-To access the API Gateway resources, you must authenticate using valid AWS credentials. Specifically, an `Access Key ID`, `Secret Access Key` and `Region` are required. You can generate these credentials by following the official [AWS documentation](https://docs.aws.amazon.com/keyspaces/latest/devguide/create.keypair.html).
+To access the API Gateway resources, you must authenticate using valid AWS credentials. Specifically, an `Access Key ID`, `Secret Access Key` and `Region` are required. 
+
+You can generate these credentials by following this [documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/access-keys-admin-managed.html#admin-create-access-key) or simply use the credentials you created during the [API Setup](https://github.com/apaytuvigallart/TinyKraken?tab=readme-ov-file#%EF%B8%8F-api-setup). Resources are created in `eu-west-1`, so you must specify that region.
 
 Once generated, provide these credentials in your requests to ensure secure access to the API Gateway. For reference, you can review this example using [Postman](https://www.postman.com/). 
 
