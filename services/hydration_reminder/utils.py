@@ -6,8 +6,8 @@ from pynamodb.exceptions import PutError
 from twilio.base.exceptions import TwilioRestException
 from twilio.rest import Client
 
-from .db import TinyKrakenEntry
-from .settings import (
+from hydration_reminder.db import TinyKrakenEntry
+from hydration_reminder.settings import (
     TO_PHONE_NUMBER,
     TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN,

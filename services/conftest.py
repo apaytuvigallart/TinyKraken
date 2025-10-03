@@ -1,7 +1,7 @@
 import datetime
 
 import pytest
-from hydration_reminder.hydration_reminder.db import TinyKrakenEntry
+from hydration_reminder.db import TinyKrakenEntry
 
 
 @pytest.fixture
