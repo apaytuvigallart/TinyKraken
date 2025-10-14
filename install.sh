@@ -29,7 +29,9 @@ pip install -q --upgrade pip
 
 # Install dependencies
 echo "Installing dependencies from requirements.txt..."
-pip install -q -r requirements.txt -t services --no-cache-dir --upgrade
+mkdir -p python
+pip install -q -r requirements.txt -t python --no-cache-dir --upgrade
+zip -r -q python.zip python/
 
 # Get Twilio credentials, user's phone number and Google API key
 echo "Please enter the following credentials. Input is hidden for security reasons."
@@ -57,6 +59,13 @@ terraform init
 terraform apply -auto-approve -var="twilio_account_sid=$TWILIO_ACCOUNT_SID" -var="twilio_auth_token=$TWILIO_AUTH_TOKEN" -var="twilio_phone_number=$TWILIO_PHONE_NUMBER" -var="to_phone_number=$TO_PHONE_NUMBER" -var="google_api_key=$GOOGLE_API_KEY"
 cd ..
 deactivate
+
+# Cleanup
+echo "Cleaning up..."
+rm -rf python
+rm -rf .env
+rm -rf .venv
+rm -rf python.zip tiny_kraken_api.zip tiny_kraken_hydration_reminder.zip
 
 # Setup complete
 echo "Setup complete"
