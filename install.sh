@@ -4,7 +4,7 @@
 set -e
 
 # Check if virtual environment folder exists
-if [ ! -f ".env" ]; then
+if [[ ! -f ".env" ]]; then
   echo "Creating config file..."
   touch .env
 else
@@ -12,7 +12,7 @@ else
 fi
 
 # Check if virtual environment folder exists
-if [ ! -d ".venv" ]; then
+if [[ ! -d ".venv" ]]; then
   echo "Creating Python virtual environment..."
   python3.11 -m venv .venv
 else
